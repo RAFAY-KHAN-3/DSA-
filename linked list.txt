@@ -1,0 +1,77 @@
+#include <iostream>
+using namespace std;
+
+// 1. The Node Class (The building block)
+class Node {
+public:
+    int data;
+    Node* next;
+
+    // Constructor to initialize a node
+    Node(int value) {
+        data = value;
+        next = nullptr;
+    }
+};
+
+// 2. The LinkedList Class (The manager)
+class LinkedList {
+private:
+    Node* head; // Points to the first node
+
+public:
+    LinkedList() { head = nullptr; }
+
+    // Task 1: Insert at the end
+    void insert(int value) {
+        Node* newNode = new Node(value);
+        if (head == nullptr) {
+            head = newNode;
+            return;
+        }
+        Node* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+
+    // Task 2: Display the list
+    void display() {
+        Node* temp = head;
+        while (temp != nullptr) {
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        }
+        cout << "NULL" << endl;
+    }
+
+    // Task 3: Search for a value
+    bool search(int key) {
+        Node* temp = head;
+        while (temp != nullptr) {
+            if (temp->data == key) return true;
+            temp = temp->next;
+        }
+        return false;
+    }
+};
+
+int main() {
+    LinkedList list;
+
+    list.insert(10);
+    list.insert(20);
+    list.insert(30);
+
+    cout << "Linked List: ";
+    list.display();
+
+    int target = 20;
+    if (list.search(target))
+        cout << target << " found in the list!" << endl;
+    else
+        cout << target << " not found." << endl;
+
+    return 0;
+}
